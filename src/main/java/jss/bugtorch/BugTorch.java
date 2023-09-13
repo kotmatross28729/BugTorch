@@ -4,17 +4,26 @@ import java.io.File;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.relauncher.Side;
 import jss.bugtorch.listeners.*;
 import jss.bugtorch.modsupport.*;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import net.minecraft.item.Item;
+import cpw.mods.fml.common.registry.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import jss.bugtorch.config.BugTorchConfig;
+
+import static jss.bugtorch.config.BugTorchConfig.Hchunpowderlist;
 
 @Mod(
 		modid = BugTorch.MODID,
@@ -75,8 +84,7 @@ public class BugTorch {
                 MinecraftForge.EVENT_BUS.register(SuperSecretSettingsDisable.INSTANCE);
             }
         }
-
-	}
+    }
 
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
@@ -103,6 +111,51 @@ public class BugTorch {
 		if(Loader.isModLoaded("VillageNames")) {
 			VillageNamesSupport.enableSupport();
 		}
+        for (String itemName : Hchunpowderlist) {
+            String modId;
+            String itemNameOnly;
+            int metadata = 0; // Default metadata value
+
+            String[] parts = itemName.split(":", 3);
+            if (parts.length == 3) {
+                modId = parts[0];
+                itemNameOnly = parts[1];
+
+                try {
+                    metadata = Integer.parseInt(parts[2]);
+                } catch (NumberFormatException e) {
+                    //logger.fatal("Invalid metadata in HchunpowderList: " + itemName);
+                    continue;
+                }
+            } else if (parts.length == 2) {
+                modId = parts[0];
+                itemNameOnly = parts[1];
+            } else {
+                // Debug shit
+                /*
+                        logger.fatal("Invalid item format in HchunpowderList: " + itemName + ". Expected format: modid:itemname");
+                        logger.fatal("                                      H                                                   ");
+                        logger.fatal("                                      H                                                   ");
+                        logger.fatal("                                      H                                                   ");
+                        logger.fatal("                                      H                                                   ");
+                        logger.fatal("Invalid item format in HchunpowderList: " + itemName + ". Expected format: modid:itemname[:metadata]");
+*/
+                continue;
+            }
+
+            Item item = GameRegistry.findItem(modId, itemNameOnly);
+            if (item != null) {
+                ExplodingItemsRegistry.explodingItems.add(new ExplodingItemsRegistry.ItemWithMeta(item, metadata));
+                logger.fatal("Item added to ExplodingItemsRegistry: " + itemName);
+            } else {
+                // Debug shit
+                /*
+                        logger.fatal("Item not found: " + itemName);
+                        logger.fatal("Item not found: " + itemName + (parts.length == 3 ? (":" + metadata) : ""));
+            */
+            }
+        }
+
 	}
 
 }

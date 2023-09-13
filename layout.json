@@ -1,0 +1,13 @@
+{
+  "ideaDirPath": "C:/Users/1/Desktop/BugTorch-master/.idea",
+  "modulesMap": {
+    "BugTorch-master": "C:/Users/1/Desktop/BugTorch-master/.idea/modules/BugTorch-master.iml",
+    "BugTorch-master:mcLauncher": "C:/Users/1/Desktop/BugTorch-master/.idea/modules/BugTorch-master.mcLauncher.iml",
+    "BugTorch-master:patchedMc": "C:/Users/1/Desktop/BugTorch-master/.idea/modules/BugTorch-master.patchedMc.iml",
+    "BugTorch-master:test": "C:/Users/1/Desktop/BugTorch-master/.idea/modules/BugTorch-master.test.iml",
+    "BugTorch-master:injectedTags": "C:/Users/1/Desktop/BugTorch-master/.idea/modules/BugTorch-master.injectedTags.iml",
+    "BugTorch-master:main": "C:/Users/1/Desktop/BugTorch-master/.idea/modules/BugTorch-master.main.iml",
+    "BugTorch-master:api": "C:/Users/1/Desktop/BugTorch-master/.idea/modules/BugTorch-master.api.iml",
+    "BugTorch-master:ideVirtualMain": "C:/Users/1/Desktop/BugTorch-master/.idea/modules/BugTorch-master.ideVirtualMain.iml"
+  }
+}

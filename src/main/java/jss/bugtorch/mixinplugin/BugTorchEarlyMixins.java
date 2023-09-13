@@ -51,6 +51,9 @@ public class BugTorchEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader
         if(BugTorchConfig.throwEnderPearlsInCreativeMode) {
             mixins.add("minecraft.backport.MixinItemEnderPearl");
         }
+        if(BugTorchConfig.Hchunpowder) {
+            mixins.add("minecraft.backport.MixinHcgunpowder");
+        }
 
         //Bugfixes
         if(client && BugTorchConfig.fixAnvilSoundTypeStepSound) {
