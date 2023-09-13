@@ -13,10 +13,13 @@ public class ExplodingItemsRegistry {
     public static class ItemWithMeta {
         public final Item item;
         public final int metadata;
+        public final float explosionPower;
 
-        public ItemWithMeta(Item item, int metadata) {
+        public ItemWithMeta(Item item, int metadata, float explosionPower) {
             this.item = item;
             this.metadata = metadata;
+            this.explosionPower = explosionPower;
         }
     }
+
 }
