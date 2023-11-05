@@ -54,9 +54,15 @@ public class BugTorchLateMixins implements ILateMixinLoader {
             BugTorchConfig.extraUtilitiesTradingPostVillageNamesNitwitFilter = false;
         }
 
+
         BugTorch.logger.info("Kicking off BugTorch late mixins.");
         boolean client = FMLLaunchHandler.side().isClient();
         List<String> mixins = new ArrayList<>();
+
+        if(client) {
+            if (loadedMods.contains("NotEnoughItems")){
+                    mixins.add("client.WorldOverlayRendererMixin");}
+            }
 
         //Mod bugfixes
         if(BugTorchConfig.fixCrayfishFurnitureNullPointerException) {

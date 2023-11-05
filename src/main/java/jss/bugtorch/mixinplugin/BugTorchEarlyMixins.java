@@ -38,6 +38,14 @@ public class BugTorchEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader
             useNotFineOverlap = false;
         }
 
+        if(client) {
+            if (loadedCoreMods.contains("optifine.OptiFineForgeTweaker")){
+                mixins.add("client.RendererLivingEntityMixin");
+                mixins.add("client.RenderMixin");
+                mixins.add("client.RenderManagerMixin");
+                mixins.add("client.ShadersMixin");}
+        }
+
         //Backports
         if(BugTorchConfig.cobwebsCanBeSheared) {
             mixins.add("minecraft.backport.MixinBlockWeb");
