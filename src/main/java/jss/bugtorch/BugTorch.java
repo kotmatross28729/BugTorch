@@ -7,12 +7,13 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.relauncher.Side;
-import jss.bugtorch.listeners.BroadcastSettingsDisable;
-import jss.bugtorch.listeners.BroadcastSettingsRemover;
-import jss.bugtorch.listeners.LANButtonDisable;
+import jss.bugtorch.listeners.ExplodingItemsRegistry;
 import jss.bugtorch.listeners.LANButtonRemover;
-import jss.bugtorch.listeners.SuperSecretSettingsDisable;
+import jss.bugtorch.listeners.LANButtonDisable;
+import jss.bugtorch.listeners.BroadcastSettingsRemover;
+import jss.bugtorch.listeners.BroadcastSettingsDisable;
 import jss.bugtorch.listeners.SuperSecretSettingsRemover;
+import jss.bugtorch.listeners.SuperSecretSettingsDisable;
 import jss.bugtorch.modsupport.ExtraUtilitiesSupport;
 import jss.bugtorch.modsupport.PamsTemperatePlantsSupport;
 import jss.bugtorch.modsupport.ThaumcraftSupport;
@@ -25,7 +26,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import net.minecraft.item.Item;
-import cpw.mods.fml.common.registry.*;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -135,11 +136,6 @@ public class BugTorch {
         }
 
         if(Loader.isModLoaded("VillageNames")) {
-            VillageNamesSupport.enableSupport();
-        }
-    }
-
-        if (Loader.isModLoaded("VillageNames")) {
             VillageNamesSupport.enableSupport();
         }
         for (String itemName : Hchunpowderlist) {
