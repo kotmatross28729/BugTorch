@@ -15,6 +15,9 @@ public class BugTorchConfig {
 	public static boolean fixPumpkinBlocksRandomlyTicking;
 	public static boolean fixSnowBlocksRandomlyTicking;
 	public static boolean fixTorchBlocksRandomlyTicking;
+    public static boolean Hchunpowder;
+
+    public static String[] Hchunpowderlist;
 
     //Buttons
     public static boolean DisableBroadcastSettings;
@@ -202,6 +205,8 @@ public class BugTorchConfig {
 		deadBushesDropSticks = config.getBoolean("deadBushesDropSticks", categoryBackport, true, "Dead Bushes drop 0-2 Sticks.\nFrom MC 1.9");
 		fireArrowsDetonateTNTCarts = config.getBoolean("fireArrowsDetonateTNTCarts", categoryBackport, true, "Minecarts with TNT explode when hit by fire arrows.\nFrom MC 1.8, fixes MC-8987");
 		throwEnderPearlsInCreativeMode = config.getBoolean("throwEnderPearlsInCreativeMode", categoryBackport, true, "Ender Pearls can be thrown in creative mode.\nFrom MC 1.9, fixes MC-438");
+        Hchunpowder = config.getBoolean("Hchunpowder", categoryBackport, true, "The furnace explode if you put the item listed below in it (by default, this is gunpowder) Ported from BetterWithPatches by Yoghurt4C");
+        Hchunpowderlist = config.getStringList("HchunpowderList", categoryBackport, new String[]{"minecraft:gunpowder", "minecraft:tnt:4f"}, "List of items that will explode a lit furnace");
 
 		//Bugfixes
 		fixAnvilSoundTypeStepSound = config.getBoolean("fixAnvilSoundTypeStepSound", categoryBugfixes, true, "Makes the anvil sound type step a valid sound\nAlso prevents log errors when walking on anvils.");
@@ -274,9 +279,7 @@ public class BugTorchConfig {
 		scaledSuffocationDamageMaxHealthMult = config.getFloat("scaledSuffocationDamageMaxHealthMult", categoryTweaks, 0f, 0f, 1f, "Portion of max player health to remove each suffocation tick.\nSet to 0 to disable.");
 		scaledWitherDamageMaxHealthFlat = config.getFloat("scaledWitherDamageMaxHealthFlat", categoryTweaks, 0f, 0f, 20000f, "Portion of max player health to remove each wither effect tick.\nSet to 0 to disable.");
 		scaledWitherDamageMaxHealthMult = config.getFloat("scaledWitherDamageMaxHealthMult", categoryTweaks, 0f, 0f, 1f, "Portion of max player health to remove each wither effect tick.\nSet to 0 to disable.");
-
         patchArmorDyeRecipe = config.getBoolean("patchArmorDyeRecipe", categoryTweaks, true, "Removes the hardcoded vanilla dye limitation from the vanilla recipe for dying Leather Armor.");
-
 		lanPortToUseForOverride = config.getInt("lanPortToUseForOverride", categoryTweaks, 25565, 1024 , 49151, "Port to use for lanPortOverride.");
 
 		//Update old config options
