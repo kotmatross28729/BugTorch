@@ -24,7 +24,7 @@ public class BugTorchEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader
 
     @Override
     public List<String> getMixins(Set<String> loadedCoreMods) {
-        String configFolder =  "config" + File.separator + BugTorch.MODID + File.separator;
+        String configFolder = "config" + File.separator + BugTorch.MODID + File.separator;
         BugTorchConfig.loadBaseMixinConfig(new File(Launch.minecraftHome, configFolder + "mixins.cfg"));
         BugTorchConfig.loadModdedMixinConfig(new File(Launch.minecraftHome, configFolder + "mixinsModSupport.cfg"));
 
@@ -75,6 +75,12 @@ public class BugTorchEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader
         }
         if(client && BugTorchConfig.fixLavaHissOnAirReplace) {
             mixins.add("minecraft.fix.MixinBlockLiquid");
+        }
+        if(BugTorchConfig.fixLeadsBreakingOnSomeFenceInstances) {
+            mixins.add("minecraft.fix.MixinEntityLeashKnot");
+        }
+        if(BugTorchConfig.fixLeafDecayCheckRange) {
+            mixins.add("minecraft.fix.MixinBlockLeaves");
         }
         if(BugTorchConfig.fixMergeItemStack) {
             if(loadedCoreMods.contains("cofh.asm.LoadingPlugin")) {
@@ -147,19 +153,21 @@ public class BugTorchEarlyMixins implements IFMLLoadingPlugin, IEarlyMixinLoader
         if(BugTorchConfig.fasterGetBlockByIdForAirBlocks) {
             mixins.add("minecraft.optimization.MixinBlock");
         }
-        if(BugTorchConfig.fasterOptionInteractions) {
-            if(useNotFineOverlap) {
-                mixins.add("minecraft.optimization.gamesettings.MixinFasterSetOptions");
+        if(!loadedCoreMods.contains("optifine.OptiFineForgeTweaker")) {
+            if(BugTorchConfig.fasterOptionInteractions) {
+                if(useNotFineOverlap) {
+                    mixins.add("minecraft.optimization.gamesettings.MixinFasterSetOptions");
+                }
+                mixins.add("minecraft.optimization.MixinGameSettings_Options");
             }
-            mixins.add("minecraft.optimization.MixinGameSettings_Options");
-        }
-        if(BugTorchConfig.fasterOptionLoading) {
-            mixins.add("minecraft.optimization.gamesettings.MixinFasterLoadOptions");
+            if(BugTorchConfig.fasterOptionLoading) {
+                mixins.add("minecraft.optimization.gamesettings.MixinFasterLoadOptions");
+            }
         }
         if(BugTorchConfig.fasterSnowBlockTicks) {
             mixins.add("minecraft.optimization.MixinBlockSnowBlock");
         }
-        if(client && BugTorchConfig.moreAccurateLayeredSnowFaceCulling) {
+        if(client && useNotFineOverlap && BugTorchConfig.moreAccurateLayeredSnowFaceCulling) {
             mixins.add("minecraft.optimization.MixinBlockSnow");
         }
         if(client && BugTorchConfig.replaceRandomInEffectRenderer) {
