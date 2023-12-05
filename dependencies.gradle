@@ -24,4 +24,13 @@ dependencies {
     compileOnly deobfCurse("pams-temperate-plants-221916:2206430")
     compileOnly deobfCurse("llibrary-243298:2319767")
     compileOnly deobfCurse("mrcrayfish-furniture-mod-55438:2221679")
+    compileOnly("org.projectlombok:lombok:1.18.28")
+    annotationProcessor("org.projectlombok:lombok:1.18.28")
+    // FalseTweaks
+    compileOnly name: 'falsetweaks-mc1.7.10-2.6.2-dev'
+    // FalsePattern's Maven
+    implementation(deobfMaven("https://mvn.falsepattern.com/stripped/", "optifine:shadersmod-stripped:1.7.10-hd_u7"))
+
+    compileOnly name: 'NotEnoughItems-2.4.9-GTNH-dev'
+    compileOnly fileTree(dir: 'lib', include: '*.jar')
 }
