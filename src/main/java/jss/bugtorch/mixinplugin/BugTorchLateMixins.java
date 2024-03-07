@@ -60,11 +60,6 @@ public class BugTorchLateMixins implements ILateMixinLoader {
         boolean client = FMLLaunchHandler.side().isClient();
         List<String> mixins = new ArrayList<>();
 
-        if(client) {
-            if (loadedMods.contains("NotEnoughItems")){
-                    mixins.add("client.WorldOverlayRendererMixin");}
-            }
-
         //Mod bugfixes
         if(BugTorchConfig.fixCrayfishFurnitureNullPointerException) {
             mixins.add("crayfishfurniture.fix.MixinTileEntityDishwasher");
