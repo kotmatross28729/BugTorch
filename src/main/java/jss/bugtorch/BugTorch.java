@@ -4,9 +4,11 @@ import java.io.File;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.relauncher.Side;
 import jss.bugtorch.listeners.ButtonManager;
+import jss.bugtorch.listeners.ExplodingItemsRegistry;
 import jss.bugtorch.modsupport.ExtraUtilitiesSupport;
 import jss.bugtorch.modsupport.PamsTemperatePlantsSupport;
 import jss.bugtorch.modsupport.ThaumcraftSupport;
@@ -18,10 +20,17 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import net.minecraft.item.Item;
+import cpw.mods.fml.common.registry.GameRegistry;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import jss.bugtorch.config.BugTorchConfig;
+
+import static jss.bugtorch.config.BugTorchConfig.Hchunpowderlist;
 
 @Mod(
     modid = BugTorch.MODID,
@@ -100,6 +109,42 @@ public class BugTorch {
         if(Loader.isModLoaded("VillageNames")) {
             VillageNamesSupport.enableSupport();
         }
-    }
+        for (String itemName : Hchunpowderlist) {
+            String modId;
+            String itemNameOnly;
+            int metadata = 0;
+            float explosionPower = 3f; // Default explosion power
 
+            String[] parts = itemName.split(":");
+            if (parts.length >= 2) {
+                modId = parts[0];
+                itemNameOnly = parts[1];
+                if (parts.length >= 3) {
+                    try {
+                        metadata = Integer.parseInt(parts[2]);
+                    } catch (NumberFormatException e) {
+                        // If not an integer, assume it's a float for explosion power
+                        try {
+                            explosionPower = Float.parseFloat(parts[2]);
+                        } catch (NumberFormatException ex) {
+                            continue;
+                        }
+                    }
+                }
+
+                if (parts.length == 4) {
+                    try {
+                        explosionPower = Float.parseFloat(parts[3]);
+                    } catch (NumberFormatException e) {
+                        continue;
+                    }
+                }
+                Item item = GameRegistry.findItem(modId, itemNameOnly);
+                if (item != null) {
+                    ExplodingItemsRegistry.ItemWithMeta explodingItem = new ExplodingItemsRegistry.ItemWithMeta(item, metadata, explosionPower);
+                    ExplodingItemsRegistry.explodingItems.add(explodingItem);
+                }
+            }
+        }
+    }
 }
