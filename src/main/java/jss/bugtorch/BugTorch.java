@@ -4,6 +4,7 @@ import java.io.File;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.event.FMLConstructionEvent;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.relauncher.Side;
@@ -16,6 +17,7 @@ import jss.bugtorch.modsupport.TorchLeversSupport;
 import jss.bugtorch.modsupport.VanillaSupport;
 import jss.bugtorch.modsupport.VillageNamesSupport;
 import jss.bugtorch.modsupport.WitcherySupport;
+import jss.bugtorch.util.AssetLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.logging.log4j.LogManager;
@@ -48,13 +50,26 @@ public class BugTorch {
     // cached to boost looping, should be used pretty often due to how recipe lookup works
     public static final int[] dyeOreIds = new int[16];
 
+
+    @Mod.EventHandler
+    public void construct(FMLConstructionEvent event) {
+        if (!FMLCommonHandler.instance().getSide().isClient()) return;
+
+        try {
+            Class.forName("glowredman.txloader.TXLoaderCore");
+            BugTorchConfig.txLoaderPresent = true;
+            AssetLoader.load();
+        } catch (Exception ignored) {
+            BugTorchConfig.txLoaderPresent = false;
+        }
+    }
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         String configFolder =  event.getModConfigurationDirectory().getAbsolutePath() + File.separator + MODID + File.separator;
         BugTorchConfig.loadBaseConfig(new File(configFolder + "base.cfg"));
         BugTorchConfig.loadModdedConfig(new File(configFolder + "modSupport.cfg"));
 
-        VanillaSupport.enableSupport();
+        VanillaSupport.enableSupport(event);
 
         if(event.getSide() == Side.CLIENT) {
             FMLCommonHandler.instance().bus().register(ButtonManager.INSTANCE);

@@ -28,6 +28,7 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.28")
     // FalseTweaks
     compileOnly name: 'falsetweaks-mc1.7.10-2.6.2-dev'
+    compileOnly name: 'txloader-1.7.0-dev'
     // FalsePattern's Maven
     implementation(deobfMaven("https://mvn.falsepattern.com/stripped/", "optifine:shadersmod-stripped:1.7.10-hd_u7"))
 

@@ -16,9 +16,18 @@ public class BugTorchConfig {
 	public static boolean fixPumpkinBlocksRandomlyTicking;
 	public static boolean fixSnowBlocksRandomlyTicking;
 	public static boolean fixTorchBlocksRandomlyTicking;
+    public static boolean fixThunderSoundVolume = true;
+    public static float thunderSoundVolumeMultiplier = 10.0F;
     public static boolean Hchunpowder;
 
     public static String[] Hchunpowderlist;
+
+    public static boolean addSquidsSounds;
+    public static boolean addTossAnimation = true;
+    public static boolean addHitSound = true;
+    public static boolean txLoaderPresent;
+    //Mob Sound reduction
+    public static int mobSaySoundDelay = 0;
 
 	//Base tweaks
 	public static int showBroadcastSettingsButton;
@@ -147,6 +156,7 @@ public class BugTorchConfig {
 	static final String categoryOreDictionary = "ore dictionary";
 	static final String categoryPerformance = "performance improvements";
 	static final String categoryTweaks = "tweaks";
+    static final String categoryAdditions = "additions";
 
 	public static void loadBaseConfig(File configFile) {
 		Configuration config = new Configuration(configFile);
@@ -161,6 +171,15 @@ public class BugTorchConfig {
 		fixPumpkinBlocksRandomlyTicking = config.getBoolean("fixPumpkinBlocksRandomlyTicking", categoryBugfixes, true, "Pumpkin blocks will no longer randomly tick.");
 		fixSnowBlocksRandomlyTicking = config.getBoolean("fixSnowBlocksRandomlyTicking", categoryBugfixes, true, "Non-layered snow blocks will no longer randomly tick.\nFrom MC 1.14, fixes MC-88097");
 		fixTorchBlocksRandomlyTicking = config.getBoolean("fixTorchBlocksRandomlyTicking", categoryBugfixes, true, "Torch blocks will no longer randomly tick.");
+
+
+        //Features
+        addSquidsSounds = config.getBoolean("fixSquidsSounds", categoryAdditions, true, "Squids will make sounds (requires TX Loader)");
+        addTossAnimation = config.getBoolean("addPlayerTossAnimation", categoryAdditions, true, "Adds Player item toss animation and sound(requires TX Loader)");
+        addHitSound = config.getBoolean("addPlayerHitSounds", categoryAdditions, true, "Adds Player attack sounds (requires TX Loader)");
+        fixThunderSoundVolume = config.getBoolean("fixThunderVolume", categoryBugfixes, true, "Sets thunder sound AttenuationType to LINEAR");
+        thunderSoundVolumeMultiplier = config.getFloat("thunderVolumeMultiplier", categoryBugfixes, 1  , Float.MIN_VALUE , Float.MAX_VALUE, "Thunder Volume modifier. if fixThunderVolume is enabled");
+        mobSaySoundDelay = config.getInt("mobSaySoundDelay", categoryTweaks, 0 , 0 , Integer.MAX_VALUE, "Adds a delay to sounds made by mobs, such as zombie growls etc. set 0 to disable");
 
 		//Tweaks
 		showBroadcastSettingsButton = config.getInt("showBroadcastSettingsButton", categoryTweaks, 1, -1, 1, "Show (1), disable(0), or remove(-1) the Broadcast Settings button in the options menu.");
