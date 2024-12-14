@@ -17,12 +17,12 @@ public class VanillaSupport {
 
     public static void enableSupport(FMLPreInitializationEvent event) {
         //Backports
-        if(BugTorchConfig.enableFloatingTrapDoors) {
+        if (BugTorchConfig.enableFloatingTrapDoors) {
             BlockTrapDoor.disableValidation = true;
         }
 
         //Bugfixes
-        if(BugTorchConfig.fixBlockSounds) {
+        if (BugTorchConfig.fixBlockSounds) {
             Blocks.bed.setStepSound(Block.soundTypeCloth);
             Blocks.tripwire.setStepSound(Block.soundTypeCloth);
             Blocks.web.setStepSound(Block.soundTypeCloth);
@@ -37,47 +37,50 @@ public class VanillaSupport {
             Blocks.light_weighted_pressure_plate.setStepSound(Block.soundTypeMetal);
         }
 
-        if(BugTorchConfig.fixJackOLanternBlocksRandomlyTicking) {
+        if (BugTorchConfig.fixJackOLanternBlocksRandomlyTicking) {
             Blocks.lit_pumpkin.setTickRandomly(false);
         }
 
-        if(BugTorchConfig.fixPumpkinBlocksRandomlyTicking) {
+        if (BugTorchConfig.fixPumpkinBlocksRandomlyTicking) {
             Blocks.pumpkin.setTickRandomly(false);
         }
 
-        if(BugTorchConfig.fixSnowBlocksRandomlyTicking) {
+        if (BugTorchConfig.fixSnowBlocksRandomlyTicking) {
             Blocks.snow.setTickRandomly(false);
         }
 
-        if(BugTorchConfig.fixTorchBlocksRandomlyTicking) {
+        if (BugTorchConfig.fixTorchBlocksRandomlyTicking) {
             Blocks.torch.setTickRandomly(false);
         }
 
-        if(BugTorchConfig.mobSaySoundDelay>0){
+        if (BugTorchConfig.mobSaySoundDelay > 0) {
             MinecraftForge.EVENT_BUS.register(new onMobSaySilenser());
         }
 
         //Client only
-        if(BugTorchConfig.fixThunderSoundVolume && event.getSide()== Side.CLIENT){
+        if (BugTorchConfig.fixThunderSoundVolume && event.getSide() == Side.CLIENT) {
             MinecraftForge.EVENT_BUS.register(new onThunderSound());
         }
 
         //REQ TX Loader
-        if(BugTorchConfig.txLoaderPresent){
+        if (BugTorchConfig.txLoaderPresent) {
 
             // Squids
             if (BugTorchConfig.addSquidsSounds) {
                 MinecraftForge.EVENT_BUS.register(new FixSquidSound());
             }
 
-            if(BugTorchConfig.addHitSound ){
+            if (BugTorchConfig.addHitSound) {
                 MinecraftForge.EVENT_BUS.register(new onPlayerHit());
             }
 
-            if(BugTorchConfig.addTossAnimation){
+            if (BugTorchConfig.addTossAnimation) {
                 MinecraftForge.EVENT_BUS.register(new onPlayerToss());
             }
 
+        }
+        if (BugTorchConfig.fixTorchBlocksRandomlyTicking) {
+            Blocks.torch.setTickRandomly(false);
         }
     }
 

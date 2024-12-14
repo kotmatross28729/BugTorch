@@ -82,5 +82,11 @@
       "entity/player/attack/weak1",
       "entity/player/attack/weak3"
     ]
-  }
+  },
+    "item.fireCharge.use": {
+        "category": "block",
+        "sounds": [
+            "mob/ghast/fireball4"
+        ]
+    }
 }
