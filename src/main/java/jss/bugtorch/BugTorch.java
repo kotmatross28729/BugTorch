@@ -1,15 +1,16 @@
 package jss.bugtorch;
 
-import java.io.File;
-
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLConstructionEvent;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
-import glowredman.txloader.TXLoaderCore;
 import glowredman.txloader.Asset.Source;
+import glowredman.txloader.TXLoaderCore;
+import jss.bugtorch.config.BugTorchConfig;
 import jss.bugtorch.listeners.ButtonManager;
 import jss.bugtorch.listeners.ExplodingItemsRegistry;
 import jss.bugtorch.mixinplugin.BugTorchEarlyMixins;
@@ -21,19 +22,13 @@ import jss.bugtorch.modsupport.VanillaSupport;
 import jss.bugtorch.modsupport.VillageNamesSupport;
 import jss.bugtorch.modsupport.WitcherySupport;
 import jss.bugtorch.util.AssetLoader;
+import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import net.minecraft.item.Item;
-import cpw.mods.fml.common.registry.GameRegistry;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import jss.bugtorch.config.BugTorchConfig;
+import java.io.File;
 
 import static jss.bugtorch.config.BugTorchConfig.Hchunpowderlist;
 
